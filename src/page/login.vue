@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
     data: function() {
         return {
@@ -65,6 +66,7 @@ export default {
         };
     },
     methods: {
+        ...mapMutations(["setUserArr", "setUserInfo"]),
         async submitForm() {
             this.qdLoading = true;
             let send = true;
@@ -74,18 +76,27 @@ export default {
             if (send) {
                 const result = await this.$http.post("getUser", this.formValue);
                 if (result && result.status === 1) {
+                    let data = result.data;
+                    localStorage.setItem("user", JSON.stringify(data));
+                    // 登录成功
+                    this.setUserArr(data.userArr);
+                    this.setUserInfo(data.userInfo);
                     // 登录成功后跳转
                     this.$message.success({
                         message: "登录成功",
                         duration: 500,
                     });
-                    this.$router.push("/");
+                    this.$router.push("/userList");
                 }
             } else {
                 this.$message.error("请输入账号和密码");
             }
             this.qdLoading = false;
         },
+    },
+    created() {
+        // 先清除本地储存
+        localStorage.clear();
     },
 };
 </script>
