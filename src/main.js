@@ -5,6 +5,7 @@ import store from "./store";
 import axios from "axios";
 import ElementUI from "element-ui";
 import "./common/common.js";
+import "./common/common.less";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
 
@@ -26,10 +27,6 @@ http.interceptors.response.use(
     function(response) {
         if (response.data && response.data.status !== 1) {
             Vue.prototype.$errorConfirm(response.data.msg);
-            if (response.data.status === 10) {
-                window.localStorage.clear();
-                router.push("/supplierlogin");
-            }
         }
         // console.log('response:',response)
         return response ? response.data : {};
@@ -44,7 +41,7 @@ http.interceptors.response.use(
     }
 );
 // 全局挂载异步请求axios;
-Vue.prototype.$http = axios;
+Vue.prototype.$http = http;
 
 Vue.config.productionTip = false;
 

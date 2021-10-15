@@ -11,7 +11,7 @@ function parsePostData(ctx) {
             ctx.req.addListener("data", (data) => {
                 postdata += data;
             });
-            ctx.req.addListener("end", function () {
+            ctx.req.addListener("end", function() {
                 let parseData = JSON.parse(postdata);
                 resolve(parseData);
             });
@@ -46,7 +46,7 @@ router.post("/getUser", async (ctx, next) => {
     let userInfo = userArr[user.user_name] || "";
     if (userInfo) {
         body = {
-            data: userInfo,
+            data: { userInfo, userArr },
             msg: "登录成功",
             status: 1,
         };

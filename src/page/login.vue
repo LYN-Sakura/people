@@ -27,7 +27,6 @@
         <div class="btn">
             <el-button
                 type="primary"
-                class="fSize17"
                 :loading="qdLoading"
                 @click="submitForm"
                 @keyup.enter.native="submitForm"
@@ -43,8 +42,8 @@ export default {
     data: function() {
         return {
             formValue: {
-                user_name: "",
-                user_pwd: "",
+                user_name: "user1",
+                user_pwd: "12312",
             },
             formRules: {
                 user_name: [
@@ -73,7 +72,7 @@ export default {
                 send = valid;
             });
             if (send) {
-                const result = await this.$http.post("api/Login/login", this.formValue);
+                const result = await this.$http.post("getUser", this.formValue);
                 if (result && result.status === 1) {
                     // 登录成功后跳转
                     this.$message.success({
@@ -91,4 +90,14 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.login {
+    margin-top: 100px;
+    padding: 0 30px;
+}
+.btn {
+    .el-button {
+        width: 100%;
+    }
+}
+</style>

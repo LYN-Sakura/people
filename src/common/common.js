@@ -1,14 +1,10 @@
 import Vue from "vue";
 // 失败提示
 Vue.prototype.$errorConfirm = (result, title) => {
-    Vue.prototype
-        .$confirm(result || title + " 请联系信息开发部", "提示", {
-            confirmButtonText: "确定",
-            type: "warning",
-            showCancelButton: false,
-            customClass: "errorMsg",
-        })
-        .catch((error) => console.log(error));
+    Vue.prototype.$message({
+        message: result || title + " 请联系信息开发部",
+        type: "warning",
+    });
 };
 // 加载页面
 Vue.prototype.$allLoading = (title) =>
@@ -25,28 +21,6 @@ Vue.prototype.$gsNum = (data, num = 4) => {
         data = "";
     }
     return data ? parseFloat((+data).toFixed(num)) : num === 0 ? 0 : "";
-};
-// 清除换行符
-Vue.prototype.$clearHh = (key) => {
-    key = key.replace(/<\/?.+?>/g, "");
-    key = key.replace(/[\r\n]/g, "");
-    return key;
-};
-Vue.prototype.$sendMsg = async ({ rid, type, step, user_id }) => {
-    const body = {
-        rid,
-        type,
-        step,
-        user_id,
-    };
-    const loading = Vue.prototype.$allLoading();
-    const result = await Vue.prototype.$http.post(`common/common/Urge`, body);
-    if (result && result.status === 1) {
-        Vue.prototype.$message.success(result.msg || "发送成功");
-    } else {
-        Vue.prototype.$errorConfirm(result ? result.msg : "发送失败");
-    }
-    loading.close();
 };
 // 深克隆
 Vue.prototype.$deepClone = (data) => JSON.parse(JSON.stringify(data));
