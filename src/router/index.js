@@ -16,7 +16,13 @@ const routes = [
     {
         path: "/userList",
         name: "userList",
-        component: () => import(/* webpackChunkName: "userList" */ "../page/userList/index.vue"),
+        component: () => import(/* webpackChunkName: "userList" */ "../page/userList.vue"),
+    },
+    {
+        path: "/sendMsg/:id",
+        name: "sendMsg",
+        component: () => import(/* webpackChunkName: "sendMsg" */ "../page/sendMsg.vue"),
+        props:true
     },
 ];
 

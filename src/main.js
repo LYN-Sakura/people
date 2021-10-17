@@ -12,7 +12,10 @@ Vue.use(ElementUI);
 // 代理 本地
 Vue.prototype.$URL = "";
 const http = axios.create({
-    baseURL: "http://192.168.80.136:3333",
+    // 公司ip
+    // baseURL: "http://192.168.80.136:3333",
+    // 个人 有可能变更
+    baseURL: "http://localhost:3333",
     // 设置请求超时时间
     timeout: 100 * 1000,
 });
